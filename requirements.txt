@@ -1,0 +1,38 @@
+# MathView avec UniMERNet : environnement dédié, PYTHON 3.12 OBLIGATOIRE
+# (transformers 4.42.4 impose tokenizers 0.19.1, qui n'a pas de version précompilée
+#  pour Python 3.13 et ne peut pas non plus être compilé sur cette version.)
+#
+#   python3.12 -m venv venv-unimer && source venv-unimer/bin/activate
+#   pip install -r requirements.txt
+#   pip install --no-deps unimernet==0.2.3
+#
+# UniMERNet exige transformers==4.42.4 et timm<0.10 : ne pas réutiliser l'ancien venv.
+# Son installation « --no-deps » évite opencv-python (non headless), qui entre en
+# conflit avec les plugins Qt de PySide6, et les dépendances d'entraînement inutiles.
+
+PySide6
+pillow
+pyobjc-framework-Cocoa        # raccourci global, plein écran, mode barre des menus
+
+torch>=2.2.2
+torchvision>=0.17.2
+transformers==4.42.4
+timm>=0.9.16,<0.10
+albumentations>=1.4.4,<2
+opencv-python-headless
+huggingface_hub
+
+# Importés au chargement du paquet unimernet
+omegaconf
+iopath
+fairscale
+ftfy
+pandas
+rapidfuzz
+webdataset
+evaluate
+pyyaml
+
+# Format « SymPy » (optionnel)
+latex2sympy2==1.5.4   # version épinglée : évite une longue recherche de compatibilité
+sympy

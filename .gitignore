@@ -1,0 +1,57 @@
+# Python et environnement virtuel
+venv-unimer/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Modèle UniMERNet (lourd, téléchargé au premier lancement)
+models/
+
+# Cache et logs
+*.log
+.DS_Store
+.pytest_cache/
+.coverage
+htmlcov/
+resources/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.sublime-project
+.sublime-workspace
+
+# Fichiers temporaires de test
+.tmp/
+temp/
+tmp/
+
+# Dépendances optionnelles non critiques
+.env
+.env.local
+*.pth
+*.pt

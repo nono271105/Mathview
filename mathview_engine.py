@@ -104,6 +104,8 @@ def ensure_unimer_files(on_status=None) -> Path:
         )
     if missing():
         raise RuntimeError(f"Fichiers du modèle manquants dans {UNIMER_DIR} : {', '.join(missing())}")
+    os.environ.setdefault("HF_HUB_OFFLINE", "1")
+    os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
     return UNIMER_DIR
 
 
@@ -182,6 +184,11 @@ class UniMERNetOCR:
 
 if __name__ == "__main__":
     import time
+    from pathlib import Path
+
+    _venv_python = Path(__file__).resolve().parent / "venv-unimer" / "bin" / "python"
+    if _venv_python.is_file() and sys.executable != str(_venv_python):
+        os.execv(str(_venv_python), [str(_venv_python)] + sys.argv)
 
     faulthandler.enable()
     logging.basicConfig(level=logging.INFO)

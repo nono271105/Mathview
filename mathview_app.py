@@ -15,6 +15,13 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 import sys
 import os
+from pathlib import Path
+
+# Si exécuté hors de l'environnement virtuel dédié (Python 3.12 obligatoire pour transformers 4.42.4),
+# bascule automatiquement sur l'interpréteur de venv-unimer.
+_venv_python = Path(__file__).resolve().parent / "venv-unimer" / "bin" / "python"
+if _venv_python.is_file() and sys.executable != str(_venv_python):
+    os.execv(str(_venv_python), [str(_venv_python)] + sys.argv)
 
 # Variables d'environnement : à poser AVANT l'import de Qt WebEngine (via mathview_ui)
 os.environ["NO_ALBUMENTATIONS_UPDATE"] = "1"
@@ -29,10 +36,11 @@ import faulthandler
 
 faulthandler.enable()  # en cas de plantage natif, affiche où il s'est produit
 
-# torch et unimernet d'abord, dans le thread principal, AVANT toute importation de Qt
-# (voir mathview_engine.preload) : précaution contre les plantages natifs sous macOS.
-import mathview_engine
-mathview_engine.preload()
+# Initialisation de numpy et torch dans le thread principal pour éviter les conflits
+# de bibliothèques natives (Accelerate BLAS) sur macOS avec les threads secondaires Qt.
+import numpy  # noqa: F401
+import torch  # noqa: F401
+
 from mathview_engine import ensure_unimer_files, UniMERNetOCR  # noqa: E402
 
 from PIL import Image  # noqa: E402

@@ -22,6 +22,11 @@ albumentations>=1.4.4,<2
 opencv-python-headless
 huggingface_hub
 
+# Compatibilité NumPy / PyArrow / Transformers 4.42.4
+numpy<2.0
+pyarrow<19
+datasets<3.0.0
+
 # Importés au chargement du paquet unimernet
 omegaconf
 iopath

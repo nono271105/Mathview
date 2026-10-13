@@ -34,7 +34,6 @@ models/
 .pytest_cache/
 .coverage
 htmlcov/
-resources/
 
 # IDEs
 .vscode/
